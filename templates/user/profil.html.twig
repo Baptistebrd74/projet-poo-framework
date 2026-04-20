@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Mon profil</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p><strong>Prénom :</strong> {{ user.prenom }}</p>
+            <p><strong>Nom :</strong> {{ user.nom }}</p>
+            <p><strong>Email :</strong> {{ user.email }}</p>
+            <p><strong>Rôles :</strong>
+                {% for role in user.roles %}
+                    <span class="badge bg-primary">{{ role }}</span>
+                {% endfor %}
+            </p>
+            <p><strong>Emprunts en cours :</strong> {{ user.emprunts|filter(e => e.statut == 'en_cours')|length }}</p>
+            <a href="{{ path('app_mes_emprunts') }}" class="btn btn-outline-primary">Voir mes emprunts</a>
+        </div>
+    </div>
+{% endblock %}

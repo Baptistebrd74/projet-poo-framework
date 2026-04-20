@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes emprunts{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Mes emprunts</h1>
+
+    {% if emprunts|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-striped shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Livre</th>
+                        <th>Auteur</th>
+                        <th>Date d'emprunt</th>
+                        <th>Retour prévu</th>
+                        <th>Retour réel</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in emprunts %}
+                        <tr>
+                            <td>{{ e.livre.titre }}</td>
+                            <td>{{ e.livre.auteur }}</td>
+                            <td>{{ e.dateEmprunt|date('d/m/Y') }}</td>
+                            <td>{{ e.dateRetourPrevue|date('d/m/Y') }}</td>
+                            <td>{{ e.dateRetourReelle ? e.dateRetourReelle|date('d/m/Y') : '—' }}</td>
+                            <td>
+                                {% if e.statut == 'en_cours' %}
+                                    <span class="badge bg-warning">En cours</span>
+                                {% elseif e.statut == 'rendu' %}
+                                    <span class="badge bg-success">Rendu</span>
+                                {% else %}
+                                    <span class="badge bg-danger">En retard</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">Vous n'avez aucun emprunt pour l'instant.</div>
+    {% endif %}
+{% endblock %}
