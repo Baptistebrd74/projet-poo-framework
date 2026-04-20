@@ -127,6 +127,30 @@ Puis ouvrir http://127.0.0.1:8000/ dans le navigateur.
 
 ---
 
+## Captures d'écran
+
+### Partie publique
+![Accueil](screenshots/01-accueil.png)
+![Catalogue](screenshots/06-catalogue.png)
+![Détail d'un livre](screenshots/07-detail-livre.png)
+
+### Authentification
+![Inscription](screenshots/02-inscription.png)
+![Connexion](screenshots/03-connexion.png)
+
+### Espace utilisateur
+![Profil](screenshots/04-profil.png)
+![Mes emprunts](screenshots/05-mes-emprunts.png)
+
+### Administration
+![Menu admin](screenshots/08-menu-admin.png)
+![Gestion des livres](screenshots/10-admin-livres.png)
+![Gestion des catégories](screenshots/09-admin-categories.png)
+![Liste des utilisateurs](screenshots/11-admin-utilisateurs.png)
+![Gestion des emprunts](screenshots/12-admin-emprunts.png)
+
+---
+
 ## Structure du projet
 
 ```
