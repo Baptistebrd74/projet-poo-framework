@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">Créer un compte</h2>
+                    {{ form_start(registrationForm) }}
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.prenom, null, {label_attr: {class: 'form-label'}}) }}
+                            {{ form_widget(registrationForm.prenom, {attr: {class: 'form-control'}}) }}
+                            {{ form_errors(registrationForm.prenom) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.nom, null, {label_attr: {class: 'form-label'}}) }}
+                            {{ form_widget(registrationForm.nom, {attr: {class: 'form-control'}}) }}
+                            {{ form_errors(registrationForm.nom) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.email, null, {label_attr: {class: 'form-label'}}) }}
+                            {{ form_widget(registrationForm.email, {attr: {class: 'form-control'}}) }}
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.plainPassword, null, {label_attr: {class: 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword, {attr: {class: 'form-control'}}) }}
+                            {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+                        <button class="btn btn-primary w-100">S'inscrire</button>
+                    {{ form_end(registrationForm) }}
+                    <div class="text-center mt-3">
+                        <a href="{{ path('app_login') }}">Déjà inscrit ? Se connecter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
