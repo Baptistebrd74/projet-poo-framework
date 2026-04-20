@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Catalogue des livres</h1>
+
+    <form method="get" class="card p-3 mb-4 shadow-sm">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label">Catégorie</label>
+                <select name="categorie" class="form-select">
+                    <option value="">Toutes</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat.id }}" {{ categorieActive == cat.id ? 'selected' }}>{{ cat.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <div class="form-check mt-4">
+                    <input type="checkbox" class="form-check-input" name="disponible" value="1" id="disp" {{ disponibleOnly ? 'checked' }}>
+                    <label for="disp" class="form-check-label">Disponibles uniquement</label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary w-100">Filtrer</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for livre in livres %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card card-livre shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ livre.titre }}</h5>
+                        <p class="text-muted mb-2">par {{ livre.auteur }}</p>
+                        <div class="mb-2">
+                            {% if livre.categorie %}
+                                <span class="badge bg-secondary">{{ livre.categorie.nom }}</span>
+                            {% endif %}
+                            {% if livre.disponible %}
+                                <span class="badge badge-dispo">Disponible</span>
+                            {% else %}
+                                <span class="badge badge-indispo">Emprunté</span>
+                            {% endif %}
+                        </div>
+                        <p class="card-text">{{ livre.resume|u.truncate(100, '...') }}</p>
+                        <a href="{{ path('app_livre_detail', {id: livre.id}) }}" class="btn btn-sm btn-primary">Détails</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">Aucun livre ne correspond à votre recherche.</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

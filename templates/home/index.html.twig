@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil — Bibliothèque{% endblock %}
+
+{% block body %}
+    <div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
+        <h1 class="display-5 fw-bold">Bienvenue à la Bibliothèque 📚</h1>
+        <p class="lead">Empruntez vos livres préférés gratuitement.</p>
+        <a href="{{ path('app_livres') }}" class="btn btn-primary btn-lg">Parcourir le catalogue</a>
+    </div>
+
+    <h2 class="mb-4">Nos catégories</h2>
+    <div class="row mb-5">
+        {% for cat in categories %}
+            <div class="col-md-4 col-lg-2 mb-3">
+                <a href="{{ path('app_livres', {categorie: cat.id}) }}" class="btn btn-outline-dark w-100">
+                    {{ cat.nom }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="mb-4">Quelques livres</h2>
+    <div class="row">
+        {% for livre in livres %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card card-livre shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ livre.titre }}</h5>
+                        <p class="text-muted mb-2">par {{ livre.auteur }}</p>
+                        {% if livre.categorie %}
+                            <span class="badge bg-secondary mb-2">{{ livre.categorie.nom }}</span>
+                        {% endif %}
+                        <p class="card-text">{{ livre.resume|u.truncate(100, '...') }}</p>
+                        <a href="{{ path('app_livre_detail', {id: livre.id}) }}" class="btn btn-sm btn-primary">Détails</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

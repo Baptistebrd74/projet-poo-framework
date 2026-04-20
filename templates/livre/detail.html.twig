@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ livre.titre }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_livres') }}" class="btn btn-link mb-3">← Retour au catalogue</a>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="mb-1">{{ livre.titre }}</h1>
+            <p class="text-muted">par <strong>{{ livre.auteur }}</strong></p>
+
+            <div class="mb-3">
+                {% if livre.categorie %}
+                    <span class="badge bg-secondary">{{ livre.categorie.nom }}</span>
+                {% endif %}
+                {% if livre.disponible %}
+                    <span class="badge badge-dispo">Disponible</span>
+                {% else %}
+                    <span class="badge badge-indispo">Non disponible</span>
+                {% endif %}
+            </div>
+
+            <p><strong>Publié le :</strong> {{ livre.datePublication|date('d/m/Y') }}</p>
+
+            <h4 class="mt-4">Résumé</h4>
+            <p>{{ livre.resume|nl2br }}</p>
+
+            {% if livre.disponible %}
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_emprunter', {id: livre.id}) }}" class="btn btn-success">📖 Emprunter ce livre</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-primary">Connectez-vous pour emprunter</a>
+                {% endif %}
+            {% else %}
+                <button class="btn btn-secondary" disabled>Livre indisponible</button>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
