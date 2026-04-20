@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin — Emprunts{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Gestion des emprunts</h1>
+
+    <table class="table table-striped shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Livre</th>
+                <th>Utilisateur</th>
+                <th>Emprunt</th>
+                <th>Retour prévu</th>
+                <th>Retour réel</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in emprunts %}
+                <tr>
+                    <td>{{ e.livre.titre }}</td>
+                    <td>{{ e.utilisateur.prenom }} {{ e.utilisateur.nom }}</td>
+                    <td>{{ e.dateEmprunt|date('d/m/Y') }}</td>
+                    <td>{{ e.dateRetourPrevue|date('d/m/Y') }}</td>
+                    <td>{{ e.dateRetourReelle ? e.dateRetourReelle|date('d/m/Y') : '—' }}</td>
+                    <td>
+                        {% if e.statut == 'en_cours' %}
+                            <span class="badge bg-warning">En cours</span>
+                        {% elseif e.statut == 'rendu' %}
+                            <span class="badge bg-success">Rendu</span>
+                        {% else %}
+                            <span class="badge bg-danger">En retard</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if e.statut == 'en_cours' %}
+                            <form method="post" action="{{ path('admin_emprunt_retour', {id: e.id}) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('retour-emprunt-' ~ e.id) }}">
+                                <button class="btn btn-sm btn-success">Marquer rendu</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="7" class="text-center">Aucun emprunt.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

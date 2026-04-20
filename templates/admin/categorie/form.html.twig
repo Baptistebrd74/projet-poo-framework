@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titre }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_categories') }}" class="btn btn-link mb-3">← Retour</a>
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h1 class="mb-4">{{ titre }}</h1>
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.nom, null, {label_attr: {class: 'form-label'}}) }}
+                    {{ form_widget(form.nom, {attr: {class: 'form-control'}}) }}
+                    {{ form_errors(form.nom) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.description, null, {label_attr: {class: 'form-label'}}) }}
+                    {{ form_widget(form.description, {attr: {class: 'form-control'}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+                <button class="btn btn-primary">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

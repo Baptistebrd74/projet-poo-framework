@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin — Utilisateurs{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Utilisateurs</h1>
+
+    <table class="table table-striped shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Emprunts</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.prenom }}</td>
+                    <td>{{ u.nom }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>
+                        {% for r in u.roles %}
+                            <span class="badge bg-primary">{{ r }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>{{ u.emprunts|length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titre }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_livres') }}" class="btn btn-link mb-3">← Retour</a>
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h1 class="mb-4">{{ titre }}</h1>
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.titre, null, {label_attr: {class: 'form-label'}}) }}
+                    {{ form_widget(form.titre, {attr: {class: 'form-control'}}) }}
+                    {{ form_errors(form.titre) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.auteur, null, {label_attr: {class: 'form-label'}}) }}
+                    {{ form_widget(form.auteur, {attr: {class: 'form-control'}}) }}
+                    {{ form_errors(form.auteur) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.resume, null, {label_attr: {class: 'form-label'}}) }}
+                    {{ form_widget(form.resume, {attr: {class: 'form-control'}}) }}
+                    {{ form_errors(form.resume) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.datePublication, null, {label_attr: {class: 'form-label'}}) }}
+                    {{ form_widget(form.datePublication, {attr: {class: 'form-control'}}) }}
+                    {{ form_errors(form.datePublication) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.categorie, null, {label_attr: {class: 'form-label'}}) }}
+                    {{ form_widget(form.categorie, {attr: {class: 'form-select'}}) }}
+                    {{ form_errors(form.categorie) }}
+                </div>
+                <div class="form-check mb-3">
+                    {{ form_widget(form.disponible, {attr: {class: 'form-check-input'}}) }}
+                    {{ form_label(form.disponible, null, {label_attr: {class: 'form-check-label'}}) }}
+                </div>
+                <button class="btn btn-primary">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
